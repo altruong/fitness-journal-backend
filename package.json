@@ -1,0 +1,26 @@
+{
+  "name": "travel-planner-backend",
+  "version": "1.0.0",
+  "description": "Travel planner backend",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ejs": "^3.1.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altruong/travel-planner-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/altruong/travel-planner-backend/issues"
+  },
+  "homepage": "https://github.com/altruong/travel-planner-backend#readme"
+}
