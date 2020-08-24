@@ -61,4 +61,4 @@ typings/
 .next
 
 # Project specific
-dist
+dist/
