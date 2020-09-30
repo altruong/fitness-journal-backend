@@ -1,9 +1,13 @@
 import express from 'express';
 import { createConnection } from 'typeorm';
+import { Post } from './entities/Post';
+require('dotenv').config();
 const main = async () => {
   // createConnection method will automatically read connection options
   // from your ormconfig file or environment variables
   const conn = await createConnection();
+
+  Post.create();
 
   const app = express();
 
