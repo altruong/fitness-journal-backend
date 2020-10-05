@@ -1,3 +1,4 @@
+import 'reflect-metadata'; // required to make the type reflection work
 import express from 'express';
 import { createConnection } from 'typeorm';
 require('dotenv').config();
