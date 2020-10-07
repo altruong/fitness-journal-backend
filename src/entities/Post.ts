@@ -11,7 +11,7 @@ import {
 @Entity() // Type-orm decorator
 export class Post extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @Field()
   @Column()
