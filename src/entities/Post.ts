@@ -10,6 +10,7 @@ import {
 @ObjectType() // Type-graphql decorator
 @Entity() // Type-orm decorator
 export class Post extends BaseEntity {
+  @Field()
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
