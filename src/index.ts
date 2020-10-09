@@ -13,20 +13,26 @@ const main = async () => {
   const conn = await createConnection();
 
   const app = express();
-  app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
+  app.use(
+    cors({
+      origin: process.env.CORS_ORIGIN,
+      credentials: true,
+    })
+  );
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({ resolvers: [PostResolver], validate: false }),
   });
 
   // Creates a graphql endpoint on express
-  // CORS set to false because we already have a cors middleware on app
+  // CORS set to false because we already have a cors middleware on express
   apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
     console.log('server astarted on localhost:4000');
   });
 
+  // Test endpoint
   app.get('/', (_req, res) => {
     res.send('Hi');
   });
