@@ -1,5 +1,6 @@
 import { Post } from '../entities/Post';
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { getConnection } from 'typeorm';
 
 @Resolver(Post)
 export class PostResolver {
@@ -8,6 +9,15 @@ export class PostResolver {
     @Arg('id') id: string // id is a graphql argument
   ): Promise<Post | undefined> {
     return Post.findOne(id);
+  }
+
+  @Query(() => [Post])
+  async posts(): Promise<Post[]> {
+    // Builds the query
+    const qb = getConnection().getRepository(Post).createQueryBuilder('p');
+    // Request the resource
+    const posts = await qb.getMany();
+    return posts;
   }
 
   @Mutation(() => Post)
