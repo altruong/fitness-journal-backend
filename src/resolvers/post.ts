@@ -27,4 +27,23 @@ export class PostResolver {
   ): Promise<Post> {
     return Post.create({ title, text }).save();
   }
+
+  @Mutation(() => Post, { nullable: true })
+  async updatePost(
+    @Arg('id') id: string,
+    @Arg('title') title: string,
+    @Arg('text') text: string
+  ): Promise<Post | null> {
+    const result = await getConnection()
+      .createQueryBuilder()
+      .update(Post)
+      .set({ title, text })
+      .where('id = :id', { id })
+      .returning('*') // returns the post that we're updating
+      .execute();
+
+    console.log(result);
+    //return result;
+    return result.raw[0];
+  }
 }
