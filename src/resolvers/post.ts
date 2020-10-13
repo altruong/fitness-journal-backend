@@ -46,4 +46,6 @@ export class PostResolver {
     //return result;
     return result.raw[0];
   }
+
+  //@Mutation (() => Boolean)
 }

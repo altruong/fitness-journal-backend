@@ -5,8 +5,8 @@
   "username": "postgres",
   "password": "postgres",
   "database": "traveltest",
-  "synchronize": "true",
-  "logging": "true",
+  "synchronize": true,
+  "logging": true,
   "entities": ["dist/entities/*.js"],
   "migrations": ["dist/migrations/*.js"]
 }
