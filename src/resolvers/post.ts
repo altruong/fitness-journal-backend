@@ -37,7 +37,7 @@ export class PostResolver {
     const result = await getConnection()
       .createQueryBuilder()
       .update(Post)
-      .set({ title, text })
+      .set({ title: title, text: text })
       .where('id = :id', { id })
       .returning('*') // returns the post that we're updating
       .execute();
