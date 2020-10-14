@@ -14,7 +14,10 @@ export class PostResolver {
   @Query(() => [Post])
   async posts(): Promise<Post[]> {
     // Builds the query
-    const qb = getConnection().getRepository(Post).createQueryBuilder('p');
+    const qb = getConnection().
+      getRepository(Post).
+      createQueryBuilder('p').
+      orderBy("p.createdAt", "DESC");
     // Request the resource
     const posts = await qb.getMany();
     return posts;
