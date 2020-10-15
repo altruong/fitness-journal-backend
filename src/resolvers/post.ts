@@ -50,5 +50,19 @@ export class PostResolver {
     return result.raw[0];
   }
 
-  //@Mutation (() => Boolean)
+  @Mutation(() => Boolean)
+  async deletePost(
+    @Arg('id') id: string
+  ): Promise<boolean> {
+    const result = await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(Post)
+      .where("id = :id", { id })
+      .returning('*')
+      .execute();
+
+    return result.raw[0] ? true : false;
+
+  }
 }
