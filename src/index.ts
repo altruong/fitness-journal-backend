@@ -5,6 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { PostResolver } from './resolvers/post';
 import cors from 'cors';
+import { UserResolver } from './resolvers/user';
 require('dotenv').config();
 
 const main = async () => {
@@ -21,7 +22,7 @@ const main = async () => {
   );
 
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({ resolvers: [PostResolver], validate: false }),
+    schema: await buildSchema({ resolvers: [PostResolver, UserResolver], validate: false }),
   });
 
   // Creates a graphql endpoint on express

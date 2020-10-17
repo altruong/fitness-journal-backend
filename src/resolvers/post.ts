@@ -31,6 +31,7 @@ export class PostResolver {
     return Post.create({ title, text }).save();
   }
 
+  // Update Post Mutation
   @Mutation(() => Post, { nullable: true })
   async updatePost(
     @Arg('id') id: string,
@@ -50,6 +51,7 @@ export class PostResolver {
     return result.raw[0];
   }
 
+  // Delete Post Mutation
   @Mutation(() => Boolean)
   async deletePost(
     @Arg('id') id: string
@@ -62,6 +64,7 @@ export class PostResolver {
       .returning('*')
       .execute();
 
+    // If id is invalid, result array will be empty
     return result.raw[0] ? true : false;
 
   }
