@@ -22,7 +22,10 @@ const main = async () => {
   );
 
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({ resolvers: [PostResolver, UserResolver], validate: false }),
+    schema: await buildSchema({
+      resolvers: [PostResolver, UserResolver],
+      validate: false,
+    }),
   });
 
   // Creates a graphql endpoint on express

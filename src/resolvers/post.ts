@@ -14,10 +14,10 @@ export class PostResolver {
   @Query(() => [Post])
   async posts(): Promise<Post[]> {
     // Builds the query
-    const qb = getConnection().
-      getRepository(Post).
-      createQueryBuilder('p').
-      orderBy("p.createdAt", "DESC");
+    const qb = getConnection()
+      .getRepository(Post)
+      .createQueryBuilder('p')
+      .orderBy('p.createdAt', 'DESC');
     // Request the resource
     const posts = await qb.getMany();
     return posts;
@@ -53,19 +53,16 @@ export class PostResolver {
 
   // Delete Post Mutation
   @Mutation(() => Boolean)
-  async deletePost(
-    @Arg('id') id: string
-  ): Promise<boolean> {
+  async deletePost(@Arg('id') id: string): Promise<boolean> {
     const result = await getConnection()
       .createQueryBuilder()
       .delete()
       .from(Post)
-      .where("id = :id", { id })
+      .where('id = :id', { id })
       .returning('*')
       .execute();
 
     // If id is invalid, result array will be empty
     return result.raw[0] ? true : false;
-
   }
 }

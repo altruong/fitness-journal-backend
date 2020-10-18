@@ -1,13 +1,9 @@
-import { Resolver } from "type-graphql";
-import { User } from "../entities/User";
+import { Resolver } from 'type-graphql';
+import { User } from '../entities/User';
 
 @Resolver(User)
 export class UserResolver {
-  // Me resolver 
-
-  // Sign in 
-
+  // Me resolver
+  // Sign in
   // Register
-
-
 }
