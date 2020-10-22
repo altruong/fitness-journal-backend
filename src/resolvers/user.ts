@@ -1,6 +1,22 @@
 import { MyContext } from 'src/types/graphql-utils';
-import { Ctx, Resolver } from 'type-graphql';
+import { Arg, Ctx, Field, ObjectType, Resolver } from 'type-graphql';
 import { User } from '../entities/User';
+
+@ObjectType()
+class FieldError {
+  @Field()
+  field: string;
+  @Field()
+  message: string;
+}
+// Additional Fields
+@ObjectType()
+class SubmissionResponse {
+  @Field(() => [FieldError], { nullable: true })
+  errors?: FieldError[];
+  @Field(() => User, { nullable: true })
+  user?: User;
+}
 
 @Resolver(User)
 export class UserResolver {
@@ -15,6 +31,13 @@ export class UserResolver {
 
   // Register Mutation
   // Login Mutation
+  login(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Ctx() { res }: MyContext
+  ): Promise<SubmissionResponse> {
+    return;
+  }
 
   // Logout Mutation
 }
