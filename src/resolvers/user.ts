@@ -4,10 +4,17 @@ import { User } from '../entities/User';
 
 @Resolver(User)
 export class UserResolver {
-  // Me resolver
-  me(@Ctx() { req }: MyContext) {}
+  // Me query
+  me(@Ctx() { req }: MyContext) {
+    if (!req.session?.userId) {
+      return null;
+    }
 
-  // Register
-  // Login
-  // Logout
+    return User.findOne(req.session.userId); //returns promise of user
+  }
+
+  // Register Mutation
+  // Login Mutation
+
+  // Logout Mutation
 }

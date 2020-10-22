@@ -1,11 +1,9 @@
-import { Session } from 'inspector';
-import { RedisClient } from 'redis';
 import { Request, Response } from 'express';
+import { RedisClient } from 'redis';
 
 export type MyContext = {
   redis: RedisClient;
-  url: string;
-  session: Session;
+
   req: Request;
   res: Response;
   //userLoader: ReturnType<typeof userLoader>;
