@@ -4,6 +4,7 @@
   "description": "Travel planner backend",
   "main": "index.js",
   "dependencies": {
+    "@types/connect-redis": "^0.0.14",
     "@types/redis": "^2.8.28",
     "apollo-server-express": "^2.18.2",
     "connect-redis": "^5.0.0",

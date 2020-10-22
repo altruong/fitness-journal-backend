@@ -14,8 +14,8 @@ import { COOKIE_NAME, __prod__ } from './utils/constants';
 
 const main = async () => {
   // createConnection method will automatically read connection options
-  // from your ormconfig file or environment variables
-  const conn = await createConnection();
+  // from ormconfig file or environment variables
+  await createConnection(); // Database config
 
   const app = express();
   app.use(
@@ -40,9 +40,9 @@ const main = async () => {
         httpOnly: true, // you cannot access the cookie in frontend
         sameSite: 'lax', // protecting csrf
         secure: __prod__, // cookie only works in https
-      }, // telling express session that we're using redis
-      saveUninitialized: false,
-      secret: String(process.env.REDIS_SECRET),
+      },
+      saveUninitialized: false, // True forces a session that is "uninitialized" to be saved to the store.
+      secret: process.env.REDIS_SECRET as string,
       resave: false,
     })
   );
@@ -51,6 +51,12 @@ const main = async () => {
     schema: await buildSchema({
       resolvers: [PostResolver, UserResolver],
       validate: false,
+    }),
+    context: ({ req, res }) => ({
+      req,
+      res,
+      redis,
+      //userLoader();
     }),
   });
 
