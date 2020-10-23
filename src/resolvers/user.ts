@@ -9,19 +9,19 @@ import { PG_ERROR } from '../constants';
 
 // Additional Fields for login/register submission
 @ObjectType()
-class SubmissionResponse {
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
-  @Field(() => User, { nullable: true })
-  user?: User;
-}
-
-@ObjectType()
 class FieldError {
   @Field()
   field: string;
   @Field()
   message: string;
+}
+
+@ObjectType()
+class SubmissionResponse {
+  @Field(() => FieldError, { nullable: true })
+  error?: FieldError;
+  @Field(() => User, { nullable: true })
+  user?: User;
 }
 
 @Resolver(User)
@@ -43,17 +43,18 @@ export class UserResolver {
     @Ctx() { req }: MyContext
   ): Promise<SubmissionResponse> {
     // Validate email and password credientials
-    let errors = validateEmail(email);
-    if (errors) {
-      return { errors };
+    let error = validateEmail(email);
+    if (error) {
+      return { error };
     }
-    errors = validatePassword(password);
-    if (errors) {
-      return { errors };
+    error = validatePassword(password);
+    if (error) {
+      return { error };
     }
 
-    // Hash the password
     const hashedPassword = await argon2.hash(password);
+
+    // Send request to postgres DB
     let user;
     try {
       const result = await getConnection()
@@ -68,28 +69,50 @@ export class UserResolver {
       console.log(err);
       if (err.code == PG_ERROR.UNIQUE_VIOLATION) {
         return {
-          errors: [
-            {
-              field: 'email',
-              message: 'email is already taken',
-            },
-          ],
+          error: {
+            field: 'email',
+            message: 'email is already taken',
+          },
         };
       }
     }
-    // Set the userId in the context
+
+    // Set the userId in the session context
     req.session.userId = user.id;
     return { user };
   }
-  /*
+
   // Login Mutation
+  @Mutation(() => SubmissionResponse)
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Ctx() { res }: MyContext
+    @Ctx() { req }: MyContext
   ): Promise<SubmissionResponse> {
-    return;
-  }*/
+    // Verify if email exists
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      return {
+        error: {
+          field: 'email',
+          message: "that username doesn't exist",
+        },
+      };
+    }
+    // Verify if password is correct
+    const isPassValid = await argon2.verify(user.password, password);
+    if (!isPassValid) {
+      return {
+        error: {
+          field: 'password',
+          message: 'password is incorrect',
+        },
+      };
+    }
+    // Set the userId in the session context
+    req.session.userId = user.id;
+    return { user };
+  }
 
   // Logout Mutation
 }
