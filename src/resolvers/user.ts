@@ -2,7 +2,15 @@ import argon2 from 'argon2';
 import { MyContext } from '../types/graphql-utils';
 import { validateEmail } from '../utils/validateEmail';
 import { validatePassword } from '../utils/validatePassword';
-import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Ctx,
+  Field,
+  Mutation,
+  ObjectType,
+  Query,
+  Resolver,
+} from 'type-graphql';
 import { getConnection } from 'typeorm';
 import { User } from '../entities/User';
 import { PG_ERROR } from '../constants';
@@ -27,6 +35,7 @@ class SubmissionResponse {
 @Resolver(User)
 export class UserResolver {
   // Me query
+  @Query(() => User)
   me(@Ctx() { req }: MyContext) {
     if (!req.session.userId) {
       return null;
