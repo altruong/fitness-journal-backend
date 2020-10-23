@@ -1,16 +1,16 @@
 import { ApolloServer } from 'apollo-server-express';
+import connectRedis from 'connect-redis';
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
+import session from 'express-session';
+import redis from 'redis';
 import 'reflect-metadata'; // required to make the type reflection work
 import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
+import { COOKIE_NAME, __prod__ } from './constants';
 import { PostResolver } from './resolvers/post';
 import { UserResolver } from './resolvers/user';
-import redis from 'redis';
-import connectRedis from 'connect-redis';
-import session from 'express-session';
-import { COOKIE_NAME, __prod__ } from './constants';
 
 const main = async () => {
   // createConnection method will automatically read connection options
@@ -37,12 +37,12 @@ const main = async () => {
         disableTouch: true, //Disables resetting TTL when using touch. Touch signals redis that user active but modified data
       }),
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+        maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
         httpOnly: true, // you cannot access the cookie in frontend
         sameSite: 'lax', // protecting csrf
         secure: __prod__, // cookie only works in https
       },
-      saveUninitialized: false, // True forces a session that is "uninitialized" to be saved to the store.
+      saveUninitialized: false, // Don't force a session that is "uninitialized" to be saved to the store.
       secret: process.env.REDIS_SECRET as string,
       resave: false,
     })
