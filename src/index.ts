@@ -10,7 +10,7 @@ import { UserResolver } from './resolvers/user';
 import redis from 'redis';
 import connectRedis from 'connect-redis';
 import session from 'express-session';
-import { COOKIE_NAME, __prod__ } from './utils/constants';
+import { COOKIE_NAME, __prod__ } from './constants';
 
 const main = async () => {
   // createConnection method will automatically read connection options
@@ -28,6 +28,7 @@ const main = async () => {
   const RedisStore = connectRedis(session);
   const redisClient = redis.createClient();
 
+  // Setup express sessions with redis store
   app.use(
     session({
       name: COOKIE_NAME, //name of cookie
