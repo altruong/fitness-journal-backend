@@ -13,7 +13,7 @@ import {
 } from 'type-graphql';
 import { getConnection } from 'typeorm';
 import { User } from '../entities/User';
-import { PG_ERROR } from '../constants';
+import { COOKIE_NAME, PG_ERROR } from '../constants';
 
 // Additional Fields for login/register submission
 @ObjectType()
@@ -124,4 +124,19 @@ export class UserResolver {
   }
 
   // Logout Mutation
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) => {
+      // removes session from redis
+      req.session.destroy((err) => {
+        if (err) {
+          resolve(false);
+          return;
+        }
+        // destroy cookie on response object
+        res.clearCookie(COOKIE_NAME);
+        resolve(true);
+      });
+    });
+  }
 }
