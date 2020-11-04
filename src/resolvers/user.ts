@@ -6,6 +6,7 @@ import {
   Arg,
   Ctx,
   Field,
+  InputType,
   Mutation,
   ObjectType,
   Query,
@@ -14,6 +15,20 @@ import {
 import { getConnection } from 'typeorm';
 import { User } from '../entities/User';
 import { COOKIE_NAME, PG_ERROR } from '../constants';
+
+@InputType()
+class RegisterInput {
+  @Field()
+  firstName: string;
+  @Field()
+  lastName: string;
+  @Field()
+  username: string;
+  @Field()
+  email: string;
+  @Field()
+  password: string;
+}
 
 // Additional Fields for login/register submission
 @ObjectType()
@@ -47,10 +62,10 @@ export class UserResolver {
   // Register Mutation
   @Mutation(() => SubmissionResponse)
   async register(
-    @Arg('email') email: string,
-    @Arg('password') password: string,
+    @Arg('input') input: RegisterInput,
     @Ctx() { req }: MyContext
   ): Promise<SubmissionResponse> {
+    const { firstName, lastName, username, email, password } = input;
     // Validate email and password credientials
     let error = validateEmail(email);
     if (error) {
@@ -70,7 +85,13 @@ export class UserResolver {
         .createQueryBuilder()
         .insert()
         .into(User)
-        .values({ email: email, password: hashedPassword })
+        .values({
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          email: email,
+          password: hashedPassword,
+        })
         .returning('*') // return clause to return everything
         .execute();
       user = result.raw[0];

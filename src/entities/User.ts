@@ -15,6 +15,14 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Field()
+  @Column()
+  firstName: string;
+
+  @Field()
+  @Column()
+  lastName: string;
+
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', default: null })
   username: string | null;
