@@ -108,6 +108,7 @@ export class UserResolver {
     }
 
     // Set the userId in the session context
+    // Essentially logging them in as well
     req.session.userId = user.id;
     return { user };
   }
