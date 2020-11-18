@@ -1,9 +1,8 @@
 import { Field, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@ObjectType()
 @Entity()
-export class Exercise extends BaseEntity {
+export abstract class Exercise extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id!: string;
@@ -24,15 +23,15 @@ export class Exercise extends BaseEntity {
   @Column()
   description: number;
 
-  @Field()
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', default: null })
   type: string | null;
 
   @Field()
   @Column()
   order: string;
 
-  @Field()
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', default: null })
   notes: string | null;
 }
