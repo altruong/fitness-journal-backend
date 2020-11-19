@@ -1,6 +1,5 @@
 import { Field } from 'type-graphql';
 import {
-  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -19,14 +18,10 @@ export class Plan {
   program: Program;
 
   @Field()
-  @Column()
-  date: Date;
-
-  @Field()
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @Field()
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 }

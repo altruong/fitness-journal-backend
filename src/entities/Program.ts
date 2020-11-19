@@ -26,9 +26,9 @@ export class Program extends BaseEntity {
 
   @Field()
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @Field()
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 }

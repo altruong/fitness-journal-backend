@@ -1,27 +1,24 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field } from 'type-graphql';
 import {
-  BaseEntity,
-  Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Plan } from './Plan';
 
-@ObjectType() // Type-graphql decorator
-@Entity() // Type-orm decorator
-export class Post extends BaseEntity {
+@Entity()
+export class PlanDay {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Field()
-  @Column()
-  title!: string;
+  @ManyToOne(() => Plan, (plan) => (plan as any).plan_day)
+  plan: Plan;
 
   @Field()
-  @Column()
-  text!: string;
+  day: string;
 
   @Field()
   @CreateDateColumn()
