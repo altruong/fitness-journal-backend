@@ -1,29 +1,32 @@
 import { Field } from 'type-graphql';
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { Exercise } from './Exercise';
 import { Program } from './Program';
 
 @Entity()
-export class Session {
+export class Plan {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => Program, (program) => (program as any).session)
+  @ManyToOne(() => Program, (program) => (program as any).plan)
   program: Program;
 
   @Field()
   @Column()
   date: Date;
 
-  @ManyToMany(() => Exercise)
-  @JoinTable({ name: 'session_exercise' })
-  activities: Exercise[];
+  @Field()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Field()
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
