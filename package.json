@@ -1,7 +1,7 @@
 {
-  "name": "travel-planner-backend",
+  "name": "fitness-planner-backend",
   "version": "1.0.0",
-  "description": "Travel planner backend",
+  "description": "Fitness planner backend",
   "main": "index.js",
   "dependencies": {
     "apollo-server-express": "^2.18.2",
@@ -16,7 +16,8 @@
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.0.0",
-    "typeorm": "^0.2.26"
+    "typeorm": "^0.2.26",
+    "typeorm-naming-strategies": "^2.0.0"
   },
   "devDependencies": {
     "@types/connect-redis": "^0.0.14",
