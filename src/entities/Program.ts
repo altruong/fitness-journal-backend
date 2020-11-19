@@ -4,9 +4,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './User';
 
 @ObjectType()
 @Entity()
@@ -15,17 +17,12 @@ export class Program extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Field()
-  @Column()
-  firstName: string;
+  @ManyToOne(() => User, (user) => (user as any).program)
+  user: User;
 
   @Field()
   @Column()
-  lastName: string;
-
-  @Field(() => String, { nullable: true })
-  @Column({ type: 'text', default: null })
-  username: string | null;
+  start_date: Date;
 
   @Field()
   @CreateDateColumn()

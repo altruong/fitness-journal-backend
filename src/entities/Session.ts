@@ -4,9 +4,11 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Activity } from './Activity';
+import { Exercise } from './Exercise';
+import { User } from './User';
 
 @Entity()
 export class Session {
@@ -18,7 +20,7 @@ export class Session {
   @Column()
   date: Date;
 
-  @ManyToMany(() => Activity)
+  @ManyToMany(() => Exercise)
   @JoinTable({ name: 'session_exercise' })
-  activities: Activity[];
+  activities: Exercise[];
 }
