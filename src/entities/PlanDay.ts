@@ -2,10 +2,13 @@ import { Field } from 'type-graphql';
 import {
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exercise } from './Exercise';
 import { Plan } from './Plan';
 
 @Entity()
@@ -16,6 +19,10 @@ export class PlanDay {
 
   @ManyToOne(() => Plan, (plan) => (plan as any).plan_day)
   plan: Plan;
+
+  @ManyToMany(() => Exercise)
+  @JoinTable({ name: 'plan_day_exercise' })
+  activities: Exercise[];
 
   @Field()
   day: string;

@@ -1,9 +1,21 @@
 import { Post } from '../entities/Post';
-import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import {
+  Arg,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from 'type-graphql';
 import { getConnection } from 'typeorm';
 
 @Resolver(Post)
 export class PostResolver {
+  @FieldResolver(() => String)
+  textSnippet(@Root() root: Post) {
+    return root.text.slice(0, 50);
+  }
+
   @Query(() => Post, { nullable: true }) // return a post or null
   post(
     @Arg('id') id: string // id is a graphql argument

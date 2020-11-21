@@ -14,7 +14,7 @@ import { User } from './User';
 @Entity()
 export class Program extends BaseEntity {
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id!: string;
 
   @ManyToOne(() => User, (user) => (user as any).program)
