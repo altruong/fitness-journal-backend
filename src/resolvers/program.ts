@@ -1,5 +1,10 @@
-import { Resolver } from 'type-graphql';
-import { Program } from 'src/entities/Program';
+import { Arg, Mutation, Resolver } from 'type-graphql';
+import { Program } from '../entities/Program';
 
 @Resolver(Program)
-export class PostResolver {}
+export class ProgramResolver {
+  @Mutation(() => Program)
+  async createProgram(@Arg('title') title: string): Promise<Program> {
+    return Program.create({ title }).save();
+  }
+}

@@ -22,7 +22,7 @@ export class PlanDay {
 
   @ManyToMany(() => Exercise)
   @JoinTable({ name: 'plan_day_exercise' })
-  activities: Exercise[];
+  exericse: Exercise[];
 
   @Field()
   day: string;

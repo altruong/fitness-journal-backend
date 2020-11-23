@@ -22,6 +22,10 @@ export class Program extends BaseEntity {
 
   @Field()
   @Column()
+  title: string;
+
+  @Field()
+  @Column()
   start_date: Date;
 
   @Field()

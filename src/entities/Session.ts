@@ -25,5 +25,5 @@ export class Session {
 
   @ManyToMany(() => Exercise)
   @JoinTable({ name: 'session_exercise' })
-  activities: Exercise[];
+  exercise: Exercise[];
 }

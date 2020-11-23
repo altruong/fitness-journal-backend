@@ -6,11 +6,13 @@ import {
   Arg,
   Ctx,
   Field,
+  FieldResolver,
   InputType,
   Mutation,
   ObjectType,
   Query,
   Resolver,
+  Root,
 } from 'type-graphql';
 import { getConnection } from 'typeorm';
 import { User } from '../entities/User';
@@ -49,6 +51,16 @@ class SubmissionResponse {
 
 @Resolver(User)
 export class UserResolver {
+  // @FieldResolver(() => String)
+  // email(@Root() user: User, @Ctx() { req }: MyContext) {
+  //   // THis is the current user and its okay to show them thier own email
+  //   if (req.session.userId === user.id) {
+  //     return 'Joemama';
+  //   }
+  //   // current user wants to see someone elses email
+  //   return '';
+  // }
+
   // Me query
   @Query(() => User)
   me(@Ctx() { req }: MyContext) {

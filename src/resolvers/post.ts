@@ -11,10 +11,10 @@ import { getConnection } from 'typeorm';
 
 @Resolver(Post)
 export class PostResolver {
-  @FieldResolver(() => String)
-  textSnippet(@Root() root: Post) {
-    return root.text.slice(0, 50);
-  }
+  // @FieldResolver(() => String)
+  // textSnippet(@Root() root: Post) {
+  //   return root.text.slice(0, 50);
+  // }
 
   @Query(() => Post, { nullable: true }) // return a post or null
   post(
