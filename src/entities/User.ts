@@ -1,4 +1,4 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -11,17 +11,17 @@ import {
 @ObjectType() // Type-graphql decorator
 @Entity() // Type-orm decorator
 export class User extends BaseEntity {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @Field()
   @Column()
-  firstName: string;
+  first_name: string;
 
   @Field()
   @Column()
-  lastName: string;
+  last_name: string;
 
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', default: null })

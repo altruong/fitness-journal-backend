@@ -1,13 +1,6 @@
-import { Post } from '../entities/Post';
-import {
-  Arg,
-  FieldResolver,
-  Mutation,
-  Query,
-  Resolver,
-  Root,
-} from 'type-graphql';
+import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { getConnection } from 'typeorm';
+import { Post } from '../entities/Post';
 
 @Resolver(Post)
 export class PostResolver {

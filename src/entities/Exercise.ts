@@ -1,4 +1,4 @@
-import { Field } from 'type-graphql';
+import { Field, Int } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -10,9 +10,9 @@ import { ExerciseType } from './ExerciseType';
 
 @Entity()
 export class Exercise extends BaseEntity {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @ManyToOne(
     () => ExerciseType,

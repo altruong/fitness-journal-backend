@@ -1,4 +1,4 @@
-import { Field } from 'type-graphql';
+import { Field, Int } from 'type-graphql';
 import {
   CreateDateColumn,
   Entity,
@@ -10,9 +10,9 @@ import { Program } from './Program';
 
 @Entity()
 export class Plan {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @ManyToOne(() => Program, (program) => (program as any).plan)
   program: Program;

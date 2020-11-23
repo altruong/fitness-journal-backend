@@ -1,11 +1,11 @@
-import { Field } from 'type-graphql';
+import { Field, Int } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class ExerciseType {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   // @OneToMany(() => Exercise, (exercise) => exercise.exercise_type)
   // exercise: Exercise[];

@@ -1,22 +1,20 @@
 import argon2 from 'argon2';
-import { MyContext } from '../types/graphql-utils';
-import { validateEmail } from '../utils/validateEmail';
-import { validatePassword } from '../utils/validatePassword';
 import {
   Arg,
   Ctx,
   Field,
-  FieldResolver,
   InputType,
   Mutation,
   ObjectType,
   Query,
   Resolver,
-  Root,
 } from 'type-graphql';
 import { getConnection } from 'typeorm';
-import { User } from '../entities/User';
 import { COOKIE_NAME, PG_ERROR } from '../constants';
+import { User } from '../entities/User';
+import { MyContext } from '../types/graphql-utils';
+import { validateEmail } from '../utils/validateEmail';
+import { validatePassword } from '../utils/validatePassword';
 
 @InputType()
 class RegisterInput {
@@ -98,8 +96,8 @@ export class UserResolver {
         .insert()
         .into(User)
         .values({
-          firstName: firstName,
-          lastName: lastName,
+          first_name: firstName,
+          last_name: lastName,
           username: username,
           email: email,
           password: hashedPassword,

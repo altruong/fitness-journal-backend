@@ -1,4 +1,4 @@
-import { Field } from 'type-graphql';
+import { Field, Int } from 'type-graphql';
 import {
   CreateDateColumn,
   Entity,
@@ -13,9 +13,9 @@ import { Plan } from './Plan';
 
 @Entity()
 export class PlanDay {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @ManyToOne(() => Plan, (plan) => (plan as any).plan_day)
   plan: Plan;

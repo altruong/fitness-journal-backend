@@ -11,6 +11,7 @@ import { createConnection } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from './constants';
 import { PostResolver } from './resolvers/post';
 import { ProgramResolver } from './resolvers/program';
+import { SessionResolver } from './resolvers/session';
 import { UserResolver } from './resolvers/user';
 
 const main = async () => {
@@ -51,7 +52,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PostResolver, UserResolver, ProgramResolver],
+      resolvers: [PostResolver, UserResolver, ProgramResolver, SessionResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({
