@@ -16,4 +16,8 @@ module.exports = {
   entities: [rootDir + '/entities/*.{js,ts}'],
   migrations: [rootDir + '/migrations/*.{js,ts}'],
   namingStrategy: new SnakeNamingStrategy(),
+  cli: {
+    entitiesDir: `${rootDir}/entities`,
+    migrationsDir: `${rootDir}/migrations`,
+  },
 };
