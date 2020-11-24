@@ -1,29 +1,36 @@
-import { isAuth } from "src/middleware/isAuth";
-import { Arg, Field, InputType, Mutation, Resolver, UseMiddleware } from "type-graphql";
-import { Exercise } from "../entities/Exercise";
+import {
+  Arg,
+  Field,
+  InputType,
+  Mutation,
+  Resolver,
+  UseMiddleware,
+} from 'type-graphql';
+import { Exercise } from '../entities/Exercise';
+import { isAuth } from '../middleware/isAuth';
 
 @InputType()
 class ExerciseInput {
   @Field()
-  reps: number
+  exercise_type_id: number;
   @Field()
-  sets: number
+  reps: number;
   @Field()
-  intensity: number
+  sets: number;
   @Field()
-  notes: string | null
+  intensity: number;
+  @Field(() => String, { nullable: true })
+  notes: string | null;
   @Field()
-  order: number
+  order: number;
 }
 
 @Resolver(Exercise)
 export class ExerciseResolver {
-  
   // Create Exericse Record
   @Mutation(() => Exercise)
   @UseMiddleware(isAuth)
-  async createExercise(
-    @Arg('input') input: ExerciseInput
-  ): Promise<Exercise> {
+  async createExercise(@Arg('input') input: ExerciseInput): Promise<Exercise> {
     return Exercise.create(input).save();
   }
+}

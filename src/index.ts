@@ -9,6 +9,7 @@ import 'reflect-metadata'; // required to make the type reflection work
 import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from './constants';
+import { ExerciseResolver } from './resolvers/exericse';
 import { PostResolver } from './resolvers/post';
 import { ProgramResolver } from './resolvers/program';
 import { SessionResolver } from './resolvers/session';
@@ -52,7 +53,13 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PostResolver, UserResolver, ProgramResolver, SessionResolver],
+      resolvers: [
+        PostResolver,
+        UserResolver,
+        ProgramResolver,
+        SessionResolver,
+        ExerciseResolver,
+      ],
       validate: false,
     }),
     context: ({ req, res }) => ({

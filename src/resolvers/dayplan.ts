@@ -1,7 +1,6 @@
-import { DayPlan } from 'src/entities/DayPlan';
-import { Exercise } from '../entities/Exercise';
+import { Arg, Int, Mutation, Resolver, UseMiddleware } from 'type-graphql';
+import { DayPlan } from '../entities/DayPlan';
 import { isAuth } from '../middleware/isAuth';
-import { Mutation, UseMiddleware, Arg, Int, Resolver } from 'type-graphql';
 
 @Resolver(DayPlan)
 export class DayPlanResolver {

@@ -10,7 +10,7 @@ export class SessionResolver {
     @Arg('programId', () => Int) programId: number
   ): Promise<Session> {
     return Session.create({
-      program: programId as any,
+      program_id: programId,
       date: new Date(Date.now()).toISOString(),
     }).save();
   }

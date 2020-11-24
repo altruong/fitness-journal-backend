@@ -20,6 +20,10 @@ export class Session extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Field(() => Int)
+  @Column({ type: 'int' })
+  program_id: number;
+
   @ManyToOne(() => Program, (program) => (program as any).session)
   program: Program;
 
