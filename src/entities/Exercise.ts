@@ -1,4 +1,4 @@
-import { Field, Int } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ExerciseType } from './ExerciseType';
 
+@ObjectType()
 @Entity()
 export class Exercise extends BaseEntity {
   @Field(() => Int)
@@ -34,7 +35,7 @@ export class Exercise extends BaseEntity {
 
   @Field()
   @Column()
-  order: string;
+  order: number;
 
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', default: null })

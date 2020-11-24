@@ -16,11 +16,7 @@ export class DayPlanResolver {
     }).save();
   }
 
-  @Mutation (() => Exercise)
-  @UseMiddleware(isAuth)
-  async addExercise(
-    @Arg('dayplanId', () => Int) dayplanId: number): Promise<Exercise> {
-      
-    }
-  )
+  // @Mutation(() => Exercise)
+  // @UseMiddleware(isAuth)
+  // async addExercise();
 }
