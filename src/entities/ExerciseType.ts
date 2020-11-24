@@ -1,5 +1,6 @@
 import { Field, Int } from 'type-graphql';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { ExerciseCategory } from './ExerciseCategory';
 
 @Entity()
 export class ExerciseType {
@@ -7,16 +8,19 @@ export class ExerciseType {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  // @OneToMany(() => Exercise, (exercise) => exercise.exercise_type)
-  // exercise: Exercise[];
-
   @Field()
   @Column()
   name: string;
 
-  @Field(() => String, { nullable: true })
-  @Column({ type: 'text', default: null })
-  type: string | null;
+  @Field(() => Int)
+  @Column()
+  exercise_category_id: number;
+
+  @ManyToOne(
+    () => ExerciseCategory,
+    (exercise_category) => (exercise_category as any).exercise_type
+  )
+  exercise_category: ExerciseCategory[];
 
   @Field(() => String, { nullable: true })
   @Column({ type: 'text', default: null })
