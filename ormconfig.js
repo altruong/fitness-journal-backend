@@ -11,11 +11,9 @@ module.exports = {
   database: 'traveltest',
   synchronize: true,
   logging: true,
-  //entities: ['dist/entities/*.js'],
-  //migrations: ['dist/migrations/*.js'],
+  namingStrategy: new SnakeNamingStrategy(),
   entities: [rootDir + '/entities/*.{js,ts}'],
   migrations: [rootDir + '/migrations/*.{js,ts}'],
-  namingStrategy: new SnakeNamingStrategy(),
   cli: {
     entitiesDir: `${rootDir}/entities`,
     migrationsDir: `${rootDir}/migrations`,
