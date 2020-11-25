@@ -31,7 +31,9 @@ export class Session extends BaseEntity {
   @Column()
   date: Date;
 
-  @ManyToMany(() => Exercise)
+  @ManyToMany(() => Exercise, (exercise) => (exercise as any).session, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({ name: 'session_exercise' })
   exercise: Exercise[];
 
