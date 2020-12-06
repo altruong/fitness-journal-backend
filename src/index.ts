@@ -9,6 +9,7 @@ import 'reflect-metadata'; // required to make the type reflection work
 import { buildSchema } from 'type-graphql';
 import { createConnection } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from './constants';
+import { DayPlanResolver } from './resolvers/dayplan';
 import { ExerciseResolver } from './resolvers/exericse';
 import { PostResolver } from './resolvers/post';
 import { ProgramResolver } from './resolvers/program';
@@ -59,6 +60,7 @@ const main = async () => {
         ProgramResolver,
         SessionResolver,
         ExerciseResolver,
+        DayPlanResolver,
       ],
       validate: false,
     }),

@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
 import { getConnection } from 'typeorm';
 import { Post } from '../entities/Post';
 
@@ -11,7 +11,7 @@ export class PostResolver {
 
   @Query(() => Post, { nullable: true }) // return a post or null
   post(
-    @Arg('id') id: string // id is a graphql argument
+    @Arg('id', () => Int) id: number // id is a graphql argument
   ): Promise<Post | undefined> {
     return Post.findOne(id);
   }
@@ -39,7 +39,7 @@ export class PostResolver {
   // Update Post Mutation
   @Mutation(() => Post, { nullable: true })
   async updatePost(
-    @Arg('id') id: string,
+    @Arg('id', () => Int) id: number,
     @Arg('title') title: string,
     @Arg('text') text: string
   ): Promise<Post | null> {
@@ -58,7 +58,7 @@ export class PostResolver {
 
   // Delete Post Mutation
   @Mutation(() => Boolean)
-  async deletePost(@Arg('id') id: string): Promise<boolean> {
+  async deletePost(@Arg('id', () => Int) id: number): Promise<boolean> {
     const result = await getConnection()
       .createQueryBuilder()
       .delete()

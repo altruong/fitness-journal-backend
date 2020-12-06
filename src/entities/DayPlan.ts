@@ -1,4 +1,4 @@
-import { Field, Int } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import {
   BaseEntity,
   Column,
@@ -13,16 +13,23 @@ import {
 import { Exercise } from './Exercise';
 import { Program } from './Program';
 
+@ObjectType()
 @Entity()
 export class DayPlan extends BaseEntity {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Program, (program) => (program as any).plan)
+  @Field(() => Int)
+  @Column({ type: 'int' })
+  program_id: number;
+
+  @ManyToOne(() => Program, (program) => (program as any).session)
   program: Program;
 
-  @ManyToMany(() => Exercise)
+  @ManyToMany(() => Exercise, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({ name: 'day_plan_exercise' })
   exericse: Exercise[];
 

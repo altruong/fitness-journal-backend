@@ -60,7 +60,7 @@ export class UserResolver {
   // }
 
   // Me query
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   me(@Ctx() { req }: MyContext) {
     if (!req.session.userId) {
       return null;
