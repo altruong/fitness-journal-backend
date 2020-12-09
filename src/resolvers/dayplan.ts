@@ -8,11 +8,12 @@ export class DayPlanResolver {
   @Mutation(() => DayPlan)
   @UseMiddleware(isAuth)
   async createDayPlan(
-    @Arg('programId', () => Int) programId: number
+    @Arg('programId', () => Int) programId: number,
+    @Arg('day', () => Int) day: number
   ): Promise<DayPlan> {
     return DayPlan.create({
-      program: programId as any,
-      day: 1,
+      program_id: programId as any,
+      day: day,
     }).save();
   }
 
