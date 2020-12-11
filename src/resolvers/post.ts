@@ -22,7 +22,7 @@ export class PostResolver {
     const qb = getConnection()
       .getRepository(Post)
       .createQueryBuilder('p')
-      .orderBy('p.createdAt', 'DESC');
+      .orderBy('p.created_at', 'DESC');
     // Request the resource
     const posts = await qb.getMany();
     return posts;

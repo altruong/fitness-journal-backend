@@ -5,12 +5,15 @@ import { isAuth } from '../middleware/isAuth';
 
 @Resolver(DayPlan)
 export class DayPlanResolver {
+  //@Query()
+
   @Mutation(() => DayPlan)
   @UseMiddleware(isAuth)
   async createDayPlan(
     @Arg('programId', () => Int) programId: number,
     @Arg('day', () => Int) day: number
   ): Promise<DayPlan> {
+    // TODO: make day unique and from 0-6
     return DayPlan.create({
       program_id: programId as any,
       day: day,
