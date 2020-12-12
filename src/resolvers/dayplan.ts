@@ -1,33 +1,57 @@
 import {
   Arg,
+  FieldResolver,
   Int,
   Mutation,
   Query,
   Resolver,
+  Root,
   UseMiddleware,
 } from 'type-graphql';
 import { getConnection } from 'typeorm';
 import { DayPlan } from '../entities/DayPlan';
+import { Exercise } from '../entities/Exercise';
 import { isAuth } from '../middleware/isAuth';
 
 @Resolver(DayPlan)
 export class DayPlanResolver {
+  @FieldResolver(() => [Exercise])
+  async exercises(@Root() dayPlan: DayPlan): Promise<Exercise[]> {
+    // WRITE SQL
+    const exercises = await getConnection().query(
+      `
+      SELECT t1.* FROM exercise t1
+      INNER JOIN day_plan_exercise t2 
+      ON t2.day_plan_id = ${dayPlan.id} 
+      `
+    );
+    console.log(exercises);
+    return exercises;
+  }
+
   @Query(() => [DayPlan])
-  @UseMiddleware(isAuth)
+  //@UseMiddleware(isAuth)
   async dayPlans(
     @Arg('programId', () => Int) programId: number
   ): Promise<DayPlan[]> {
     const qb = getConnection()
       .getRepository(DayPlan)
       .createQueryBuilder('dp')
-      .leftJoinAndSelect('dp.exercises', 'exercise')
+      // .leftJoinAndSelect('dp.exercises', 'exercise');
       .where('dp.program_id = :programId', { programId: programId })
-      .orderBy('dp.day', 'ASC');
+      .orderBy('dp.day', 'DESC');
 
-    // Request the resource
+    //Request the resource
     const dayPlans = await qb.getMany();
-    console.log(dayPlans[0].exercises);
+    // console.log(dayPlans[0]);
+    // console.log(dayPlans);
     return dayPlans;
+    // const dayPlan = getConnection().getRepository(DayPlan);
+    // const res = await dayPlan.find({
+    //   relations: ['exercises'],
+    // });
+    // console.log(res);
+    // return res;
   }
 
   @Mutation(() => DayPlan)

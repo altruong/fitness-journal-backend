@@ -24,12 +24,13 @@ export class DayPlan extends BaseEntity {
   @Column({ type: 'int' })
   program_id: number;
 
-  @ManyToOne(() => Program, (program) => (program as any).session)
+  @ManyToOne(() => Program, (program) => (program as any).day_plan)
   program: Program;
 
-  @Field(() => Exercise, { nullable: true })
+  @Field(() => [Exercise], { nullable: true })
   @ManyToMany(() => Exercise, {
     onDelete: 'CASCADE',
+    nullable: true,
   })
   @JoinTable({ name: 'day_plan_exercise' })
   exercises: Exercise[];

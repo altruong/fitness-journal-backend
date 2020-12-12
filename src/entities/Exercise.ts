@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { DayPlan } from './DayPlan';
 import { ExerciseType } from './ExerciseType';
 
 @ObjectType()
