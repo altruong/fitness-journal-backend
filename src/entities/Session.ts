@@ -35,7 +35,7 @@ export class Session extends BaseEntity {
     onDelete: 'CASCADE',
   })
   @JoinTable({ name: 'session_exercise' })
-  exercise: Exercise[];
+  exercises: Exercise[];
 
   @Field()
   @CreateDateColumn()

@@ -27,11 +27,12 @@ export class DayPlan extends BaseEntity {
   @ManyToOne(() => Program, (program) => (program as any).session)
   program: Program;
 
+  @Field(() => Exercise, { nullable: true })
   @ManyToMany(() => Exercise, {
     onDelete: 'CASCADE',
   })
   @JoinTable({ name: 'day_plan_exercise' })
-  exericse: Exercise[];
+  exercises: Exercise[];
 
   // Weekday as an integer (0-6) Sunday is 0
   @Field(() => Int)
