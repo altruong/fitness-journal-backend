@@ -21,8 +21,9 @@ export class DayPlanResolver {
     const exercises = await getConnection().query(
       `
       SELECT t1.* FROM exercise t1
-      INNER JOIN day_plan_exercise t2 
-      ON t2.day_plan_id = ${dayPlan.id} 
+      LEFT JOIN day_plan_exercise t2 
+      ON t1.id=t2.exercise_id
+	    WHERE t2.day_plan_id=${dayPlan.id};
       `
     );
     console.log(exercises);
