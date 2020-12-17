@@ -31,28 +31,19 @@ export class DayPlanResolver {
   }
 
   @Query(() => [DayPlan])
-  //@UseMiddleware(isAuth)
+  @UseMiddleware(isAuth)
   async dayPlans(
     @Arg('programId', () => Int) programId: number
   ): Promise<DayPlan[]> {
     const qb = getConnection()
       .getRepository(DayPlan)
       .createQueryBuilder('dp')
-      // .leftJoinAndSelect('dp.exercises', 'exercise');
       .where('dp.program_id = :programId', { programId: programId })
       .orderBy('dp.day', 'DESC');
 
     //Request the resource
     const dayPlans = await qb.getMany();
-    // console.log(dayPlans[0]);
-    // console.log(dayPlans);
     return dayPlans;
-    // const dayPlan = getConnection().getRepository(DayPlan);
-    // const res = await dayPlan.find({
-    //   relations: ['exercises'],
-    // });
-    // console.log(res);
-    // return res;
   }
 
   @Mutation(() => DayPlan)
